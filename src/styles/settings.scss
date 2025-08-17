@@ -1,0 +1,14 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&display=swap');
+// Set body font
+body, .v-application {
+  font-family: 'DM Sans', sans-serif !important;
+}
+
+// Set header fonts
+h1, h2, h3, h4, h5, h6,
+.text-h1, .text-h2, .text-h3, .text-h4, .text-h5, .text-h6,
+.v-toolbar-title {
+    font-family: 'Inter', sans-serif !important;
+}
