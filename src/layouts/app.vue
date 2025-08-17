@@ -6,7 +6,13 @@
     <RightSidebar />
     
     <v-main>
+      <v-sheet 
+        class="flex-grow-1 d-flex flex-column pl-2 pr-2 pb-2" 
+        color="transparent" 
+        style="min-height: 0;"
+      >
       <router-view />
+      </v-sheet>
     </v-main>
   </v-app>
 </template>
