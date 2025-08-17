@@ -7,7 +7,7 @@
     
     <v-main class="d-flex flex-column">
       <v-sheet 
-        class="flex-grow-1 d-flex flex-column pl-2 pr-2 pb-2" 
+        class="flex-grow-1 d-flex flex-column pl-2 pr-2 pb-2 pt-3" 
         color="transparent" 
         style="min-height: 0;"
       >
