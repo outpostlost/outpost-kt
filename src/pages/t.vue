@@ -1,5 +1,5 @@
 <template>
-    {{ just a test }}
+    <HelloWorld />
   </template>
   
   <script setup>
