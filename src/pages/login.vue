@@ -10,59 +10,75 @@
           </v-toolbar>
 
           <v-card-text class="flex-grow-1 d-flex align-center justify-center" style="overflow-y: auto;">
-            <v-card max-width="400" class="pa-4">
-              <v-card-title class="text-center">
-                Welcome to Outpost KT
-              </v-card-title>
-              
-              <v-card-text>
-                <v-form ref="loginForm" v-model="formValid" @submit.prevent="handleLogin">
-                  <v-text-field
-                    v-model="loginData.email"
-                    label="Email"
-                    type="email"
-                    :rules="emailRules"
-                    :disabled="isLoading"
-                    required
-                    variant="outlined"
-                    class="mb-3"
-                  />
+            <v-container>
+              <v-row justify="center">
+                <v-col cols="12" sm="8" md="6" lg="4" xl="3">
+                  
+                  <v-card-title class="text-center text-h4 mb-6">
+                    Welcome to Outpost KT
+                  </v-card-title>
+                  
+                  <v-form ref="loginForm" v-model="formValid" @submit.prevent="handleLogin">
+                    <v-text-field
+                      v-model="loginData.email"
+                      label="Email"
+                      type="email"
+                      :rules="emailRules"
+                      :disabled="isLoading"
+                      required
+                      variant="outlined"
+                      class="mb-3"
+                    />
 
-                  <v-text-field
-                    v-model="loginData.password"
-                    label="Password"
-                    type="password"
-                    :rules="passwordRules"
-                    :disabled="isLoading"
-                    required
-                    variant="outlined"
-                    class="mb-3"
-                  />
+                    <v-text-field
+                      v-model="loginData.password"
+                      label="Password"
+                      :type="showPassword ? 'text' : 'password'"
+                      :rules="passwordRules"
+                      :disabled="isLoading"
+                      required
+                      variant="outlined"
+                      class="mb-3"
+                      :append-inner-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
+                      @click:append-inner="showPassword = !showPassword"
+                    />
 
-                  <v-btn
-                    type="submit"
-                    color="primary"
-                    block
-                    :loading="isLoading"
-                    :disabled="!formValid || isLoading"
-                    size="large"
-                    class="mb-3"
-                  >
-                    Login
-                  </v-btn>
+                    <!-- Login Error Display -->
+                    <v-alert
+                      v-if="loginError"
+                      type="error"
+                      variant="text"
+                      class="mb-3"
+                    >
+                      Login failed. Please check your credentials and try again.
+                    </v-alert>
 
-                  <v-btn
-                    variant="text"
-                    color="primary"
-                    block
-                    :disabled="isLoading"
-                    @click="showPasswordReset = true"
-                  >
-                    Forgot Password?
-                  </v-btn>
-                </v-form>
-              </v-card-text>
-            </v-card>
+                    <v-btn
+                      type="submit"
+                      color="primary"
+                      block
+                      :loading="isLoading"
+                      :disabled="!formValid || isLoading"
+                      size="large"
+                      class="mb-3"
+                    >
+                      Login
+                    </v-btn>
+
+                    <v-btn
+                      variant="text"
+                      color="primary"
+                      block
+                      :disabled="isLoading"
+                      @click="showPasswordReset = true"
+                    >
+                      Forgot Password?
+                    </v-btn>
+                  </v-form>
+
+                </v-col>
+              </v-row>
+            </v-container>
           </v-card-text>
         </v-card>
       </v-col>
@@ -113,6 +129,8 @@ const loginForm = ref(null);
 const formValid = ref(false);
 const showPasswordReset = ref(false);
 const resetLoading = ref(false);
+const showPassword = ref(false);
+const loginError = ref(false);
 
 const loginData = ref({
   email: '',
@@ -140,11 +158,18 @@ const passwordRules = [
 const handleLogin = async () => {
   if (!formValid.value) return;
 
+  loginError.value = false; // Clear previous error
+  
+  console.log('Attempting login with email:', loginData.value.email);
+  
   const result = await loginUser(loginData.value.email, loginData.value.password);
   
   if (result.success) {
-    // Navigate to redirect page or default
+    console.log('Login successful, redirecting to:', result.redirectTo);
     router.push(result.redirectTo);
+  } else {
+    console.log('Login failed:', result.error);
+    loginError.value = true;
   }
 };
 
@@ -156,12 +181,16 @@ const handlePasswordReset = async () => {
   }
 
   resetLoading.value = true;
+  console.log('Attempting password reset for email:', resetEmail.value);
+  
   const result = await resetPassword(resetEmail.value);
   resetLoading.value = false;
 
   if (result.success) {
     showPasswordReset.value = false;
     resetEmail.value = '';
+  } else {
+    console.log('Password reset failed:', result.error);
   }
 };
 
