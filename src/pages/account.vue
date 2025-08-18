@@ -18,7 +18,7 @@
             <v-card class="mb-6" variant="outlined">
                     <v-card-title>Account Information</v-card-title>
                     <v-card-text>
-                      <v-list>
+                      <v-list class="mb-4">
                         <v-list-item>
                           <v-list-item-title>Email</v-list-item-title>
                           <v-list-item-subtitle>{{ currentUser?.email || 'Not available' }}</v-list-item-subtitle>

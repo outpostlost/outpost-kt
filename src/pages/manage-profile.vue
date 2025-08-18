@@ -9,7 +9,7 @@
         <v-card class="flex-grow-1 d-flex flex-column" flat>
           <v-toolbar color="primary" dark flat density="compact">
             <v-toolbar-title>
-              {{ pageData?.title || 'Profile' }}
+              {{ pageData?.title || 'Manage Profile' }}
             </v-toolbar-title>
             <v-spacer />
             
@@ -156,7 +156,7 @@ const passwordData = ref({
 });
 
 const pageMetaData = {
-  title: "Profile"
+  title: "Manage Profile"
 };
 
 // Validation rules
