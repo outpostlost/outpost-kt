@@ -98,11 +98,10 @@ const notify = useNotify()
 const appStore = useAppStore()
 
 const pageModel = ref(null)
-const pageData = ref(null)
 
-const pageMetaData = {
-  title: "Layout Test"
-}
+const pageData = ref({
+  title: 'Layout Test'
+});
 
 const storeState = computed(() => ({
   leftDrawerOpen: appStore.leftDrawerOpen,
