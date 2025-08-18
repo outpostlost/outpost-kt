@@ -18,7 +18,8 @@
 </template>
 
 <script setup>
-import { onMounted } from 'vue'
+//import { onMounted } from 'vue'
+import { watchEffect } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 import useAuth from '@/composables/useAuth'
 import AppHeader from '@/components/layout/AppHeader.vue'
@@ -29,6 +30,16 @@ const router = useRouter()
 const route = useRoute()
 const { isAuthenticated, isLoading, storeRedirectPage } = useAuth()
 
+
+
+watchEffect(() => {
+  // Only runs when auth state actually changes
+  if (!isLoading.value && !isAuthenticated.value) {
+    console.log('Layout - Auth state changed, redirecting from:', route.fullPath);
+    storeRedirectPage(route.fullPath);
+    router.push('/login');
+  }
+})
 /*
 onMounted(() => {
   // Check auth state once on mount - no watchers needed
@@ -38,7 +49,7 @@ onMounted(() => {
     router.push('/login')
   }
 })
-*/
+
 
 onMounted(() => {
   console.log('Layout guard - Auth state:', {
@@ -55,4 +66,5 @@ onMounted(() => {
     console.log('Layout guard - User authenticated, allowing access');
   }
 })
+*/
 </script>
