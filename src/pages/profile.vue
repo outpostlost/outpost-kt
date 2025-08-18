@@ -233,7 +233,7 @@ const handlePasswordChange = async () => {
 const handleLogout = async () => {
   const result = await logoutUser();
   if (result.success) {
-    router.push('/login');
+    router.replace('/login'); // Use replace instead of push
   }
 };
 

@@ -29,12 +29,30 @@ const router = useRouter()
 const route = useRoute()
 const { isAuthenticated, isLoading, storeRedirectPage } = useAuth()
 
+/*
 onMounted(() => {
   // Check auth state once on mount - no watchers needed
   if (!isLoading.value && !isAuthenticated.value) {
     // Store current page for redirect after login
     storeRedirectPage(route.fullPath)
     router.push('/login')
+  }
+})
+*/
+
+onMounted(() => {
+  console.log('Layout guard - Auth state:', {
+    isAuthenticated: isAuthenticated.value,
+    isLoading: isLoading.value,
+    currentUser: currentUser.value?.email
+  });
+  
+  if (!isLoading.value && !isAuthenticated.value) {
+    console.log('Layout guard - Redirecting to login, storing:', route.fullPath);
+    storeRedirectPage(route.fullPath)
+    router.push('/login')
+  } else {
+    console.log('Layout guard - User authenticated, allowing access');
   }
 })
 </script>
