@@ -122,7 +122,9 @@ const testSearchSubmit = () => {
 
 onMounted(() => {
   pageData.value = pageMetaData;
-  document.title = pageData.value.title;
+  if (pageData.value?.title) {
+    document.title = pageData.value.title;
+  }
 })
 </script>
 
