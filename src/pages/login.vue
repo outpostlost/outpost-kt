@@ -14,7 +14,7 @@
               <v-row justify="center" align="center" class="fill-height">
                 <v-col cols="12" sm="8" md="6" lg="4" xl="3">
                   
-                  <v-card-title class="text-center text-h4 mb-8">
+                  <v-card-title class="text-center text-h4 mb-8 pa-0">
                     Welcome to Outpost KT
                   </v-card-title>
                   
@@ -33,14 +33,12 @@
                     <v-text-field
                       v-model="loginData.password"
                       label="Password"
-                      :type="showPassword ? 'text' : 'password'"
+                      type="text"
                       :rules="passwordRules"
                       :disabled="isLoading"
                       required
                       variant="outlined"
                       class="mb-4"
-                      :append-inner-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
-                      @click:append-inner="showPassword = !showPassword"
                     />
 
                     <v-btn
@@ -128,7 +126,6 @@ const loginForm = ref(null);
 const formValid = ref(false);
 const showPasswordReset = ref(false);
 const resetLoading = ref(false);
-const showPassword = ref(false);
 const loginError = ref(false);
 
 const loginData = ref({

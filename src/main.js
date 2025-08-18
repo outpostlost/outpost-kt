@@ -45,7 +45,7 @@ async function initializeFirebase() {
 
     // Load operational project
     try {
-      await multiProjectDAL.loadProject('operational', bizDataConfig);
+      await multiProjectDAL.loadProject('operational', operationalConfig);
       console.log('Outpost Firebase Operational project loaded successfully');
     } catch (error) {
       console.error('Failed to load Operational project:', error);
@@ -54,7 +54,7 @@ async function initializeFirebase() {
 
     // Load audit project
     try {
-      await multiProjectDAL.loadProject('audit', bizDataConfig);
+      await multiProjectDAL.loadProject('audit', auditConfig);
       console.log('Outpost Firebase Audit project loaded successfully');
     } catch (error) {
       console.error('Failed to load Audit project:', error);
