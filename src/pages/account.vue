@@ -34,6 +34,7 @@
                         <v-btn 
       
       to="/manage-profile"
+      color="primary"
     >Edit email/password</v-btn>
                       </v-list>
                     </v-card-text>
