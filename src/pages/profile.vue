@@ -1,3 +1,7 @@
+<route lang="yaml">
+  meta:
+    layout: app
+</route>
 <template>
   <v-sheet class="flex-grow-1 d-flex flex-column" flat rounded color="transparent">
     <v-row class="flex-grow-1 ma-0">

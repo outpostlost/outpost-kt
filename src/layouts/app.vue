@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <!-- Always show authenticated layout - all auth mocked as true -->
+   
     <AppHeader />
     <LeftSidebar />
     <RightSidebar />
@@ -18,11 +18,23 @@
 </template>
 
 <script setup>
+import { onMounted } from 'vue'
+import { useRouter, useRoute } from 'vue-router'
+import useAuth from '@/composables/useAuth'
 import AppHeader from '@/components/layout/AppHeader.vue'
 import LeftSidebar from '@/components/layout/LeftSidebar.vue'
 import RightSidebar from '@/components/layout/RightSidebar.vue'
 
-// No auth imports, no auth composables, no auth logic
-// Simply render the authenticated layout directly
-// All the complex conditional auth logic from the original has been removed
+const router = useRouter()
+const route = useRoute()
+const { isAuthenticated, isLoading, storeRedirectPage } = useAuth()
+
+onMounted(() => {
+  // Check auth state once on mount - no watchers needed
+  if (!isLoading.value && !isAuthenticated.value) {
+    // Store current page for redirect after login
+    storeRedirectPage(route.fullPath)
+    router.push('/login')
+  }
+})
 </script>
