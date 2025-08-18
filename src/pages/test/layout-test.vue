@@ -99,9 +99,11 @@ const appStore = useAppStore()
 
 const pageModel = ref(null)
 
-const pageData = ref({
-  title: 'Layout Test'
-});
+const pageData = ref(null);
+
+const pageMetaData = {
+  title: "Page Title Here"
+}
 
 const storeState = computed(() => ({
   leftDrawerOpen: appStore.leftDrawerOpen,
@@ -119,7 +121,7 @@ const testSearchSubmit = () => {
 }
 
 onMounted(() => {
-  
+  pageData.value = pageMetaData;
   document.title = pageData.value.title;
 })
 </script>
