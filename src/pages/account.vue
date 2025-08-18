@@ -31,6 +31,10 @@
                           <v-list-item-title>Last Sign In</v-list-item-title>
                           <v-list-item-subtitle>{{ formatDate(currentUser?.metadata?.lastSignInTime) }}</v-list-item-subtitle>
                         </v-list-item>
+                        <v-btn 
+      
+      to="/manage-profile"
+    >Edit email/password</v-btn>
                       </v-list>
                     </v-card-text>
                   </v-card>

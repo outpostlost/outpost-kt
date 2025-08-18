@@ -29,7 +29,10 @@
 
     <v-btn icon="mdi-magnify" @click="appStore.toggleSearch"></v-btn>
     <v-btn icon="mdi-cog" @click="appStore.toggleRightDrawer"></v-btn>
-    <v-btn icon="mdi-account-circle-outline"></v-btn>
+    <v-btn 
+      icon="mdi-account-circle-outline"
+      to="/account"
+    ></v-btn>
     <v-btn icon="mdi-logout-variant" @click="handleLogout"></v-btn>
   </v-app-bar>
 </template>
