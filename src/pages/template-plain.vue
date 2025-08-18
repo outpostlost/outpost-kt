@@ -7,7 +7,7 @@
     <v-row class="flex-grow-1 ma-0">
       <v-col class="d-flex flex-column pa-0">
         <v-card class="flex-grow-1 d-flex flex-column" flat>
-          <v-toolbar color="primary" dark flat density="compact">
+          <v-toolbar color="secondary" dark flat density="compact">
             <v-toolbar-title>
               {{ pageData?.title || 'Default Title' }}
             </v-toolbar-title>
