@@ -102,7 +102,7 @@ const pageModel = ref(null)
 const pageData = ref(null);
 
 const pageMetaData = {
-  title: "Page Title Here"
+  title: "Layout Test"
 }
 
 const storeState = computed(() => ({
