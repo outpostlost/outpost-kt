@@ -46,6 +46,7 @@
 import { ref, computed, onMounted, watch } from 'vue';
 import { useRoute } from 'vue-router';
 import useNotify from '@/composables/useNotify'; // For notifications [cite: 3]
+import useAuth from '@/composables/useAuth'
 
 
 const route = useRoute();
@@ -53,6 +54,8 @@ const notify = useNotify();
 
 const pageModel = ref(null); // Model to store reatcive data
 const pageData = ref(null);
+
+const { currentUser, updateUserEmail, updateUserPassword, logoutUser } = useAuth();
 
 const pageMetaData = {
   title: "Account"
