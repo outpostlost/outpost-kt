@@ -30,6 +30,7 @@
     <v-btn icon="mdi-magnify" @click="appStore.toggleSearch"></v-btn>
     <v-btn icon="mdi-cog" @click="appStore.toggleRightDrawer"></v-btn>
     <v-btn icon="mdi-account-circle-outline"></v-btn>
+    <v-btn icon="mdi-logout-variant" @click="handleLogout"></v-btn>
   </v-app-bar>
 </template>
 
@@ -39,6 +40,14 @@ import { useAppStore } from '@/stores/app'
 
 const appStore = useAppStore()
 const searchFieldRef = ref(null)
+
+// Handle logout
+const handleLogout = async () => {
+  const result = await logoutUser();
+  if (result.success) {
+    router.replace('/login'); // Use replace instead of push
+  }
+};
 </script>
 
 <style scoped>
