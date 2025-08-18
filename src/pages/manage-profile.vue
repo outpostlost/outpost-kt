@@ -12,9 +12,7 @@
               {{ pageData?.title || 'Profile' }}
             </v-toolbar-title>
             <v-spacer />
-            <v-btn variant="text" @click="handleLogout">
-              Logout
-            </v-btn>
+            
           </v-toolbar>
 
           <v-card-text class="flex-grow-1" style="overflow-y: auto;">
@@ -229,13 +227,7 @@ const handlePasswordChange = async () => {
   }
 };
 
-// Handle logout
-const handleLogout = async () => {
-  const result = await logoutUser();
-  if (result.success) {
-    router.replace('/login'); // Use replace instead of push
-  }
-};
+
 
 onMounted(() => {
   pageData.value = pageMetaData;

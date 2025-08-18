@@ -37,9 +37,12 @@
 <script setup>
 import { ref } from 'vue'
 import { useAppStore } from '@/stores/app'
+import useAuth from '@/composables/useAuth';
 
 const appStore = useAppStore()
 const searchFieldRef = ref(null)
+
+const { currentUser, updateUserEmail, updateUserPassword, logoutUser } = useAuth();
 
 // Handle logout
 const handleLogout = async () => {
