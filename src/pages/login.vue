@@ -1,85 +1,73 @@
 <template>
-  <v-sheet class="flex-grow-1 d-flex flex-column" flat rounded color="transparent">
-    <v-row class="flex-grow-1 ma-0">
-      <v-col class="d-flex flex-column pa-0">
-        <v-card class="flex-grow-1 d-flex flex-column" flat>
-          <v-toolbar color="primary" dark flat density="compact">
-            <v-toolbar-title>
-              {{ pageData?.title || 'Login' }}
-            </v-toolbar-title>
-          </v-toolbar>
+  <v-app>
+    <v-main>
+      <v-container fluid class="fill-height">
+        <v-row justify="center" align="center" class="fill-height">
+          <v-col cols="12" sm="8" md="6" lg="4" xl="3">
+            
+            <v-card-title class="text-center text-h4 mb-8 pa-0">
+              Welcome to Outpost KT
+            </v-card-title>
+            
+            <v-form ref="loginForm" v-model="formValid" @submit.prevent="handleLogin">
+              <v-text-field
+                v-model="loginData.email"
+                label="Email"
+                type="email"
+                :rules="emailRules"
+                :disabled="isLoading"
+                required
+                variant="outlined"
+                class="mb-4"
+              />
 
-          <v-card-text class="flex-grow-1 d-flex align-center justify-center" style="overflow-y: auto;">
-            <v-container>
-              <v-row justify="center" align="center" class="fill-height">
-                <v-col cols="12" sm="8" md="6" lg="4" xl="3">
-                  
-                  <v-card-title class="text-center text-h4 mb-8 pa-0">
-                    Welcome to Outpost KT
-                  </v-card-title>
-                  
-                  <v-form ref="loginForm" v-model="formValid" @submit.prevent="handleLogin">
-                    <v-text-field
-                      v-model="loginData.email"
-                      label="Email"
-                      type="email"
-                      :rules="emailRules"
-                      :disabled="isLoading"
-                      required
-                      variant="outlined"
-                      class="mb-4"
-                    />
+              <v-text-field
+                v-model="loginData.password"
+                label="Password"
+                type="text"
+                :rules="passwordRules"
+                :disabled="isLoading"
+                required
+                variant="outlined"
+                class="mb-4"
+              />
 
-                    <v-text-field
-                      v-model="loginData.password"
-                      label="Password"
-                      type="text"
-                      :rules="passwordRules"
-                      :disabled="isLoading"
-                      required
-                      variant="outlined"
-                      class="mb-4"
-                    />
+              <v-btn
+                type="submit"
+                color="primary"
+                block
+                :loading="isLoading"
+                :disabled="!formValid || isLoading"
+                size="large"
+                class="mb-4"
+              >
+                Login
+              </v-btn>
 
-                    <v-btn
-                      type="submit"
-                      color="primary"
-                      block
-                      :loading="isLoading"
-                      :disabled="!formValid || isLoading"
-                      size="large"
-                      class="mb-4"
-                    >
-                      Login
-                    </v-btn>
+              <!-- Generic Login Error Display -->
+              <v-alert
+                v-if="loginError"
+                type="error"
+                variant="tonal"
+                class="mb-4"
+                text="Login failed. Please check your credentials and try again."
+              />
 
-                    <!-- Generic Login Error Display -->
-                    <v-alert
-                      v-if="loginError"
-                      type="error"
-                      variant="tonal"
-                      class="mb-4"
-                      text="Login failed. Please check your credentials and try again."
-                    />
+              <v-btn
+                variant="text"
+                color="primary"
+                block
+                :disabled="isLoading"
+                @click="showPasswordReset = true"
+              >
+                Forgot Password?
+              </v-btn>
+            </v-form>
 
-                    <v-btn
-                      variant="text"
-                      color="primary"
-                      block
-                      :disabled="isLoading"
-                      @click="showPasswordReset = true"
-                    >
-                      Forgot Password?
-                    </v-btn>
-                  </v-form>
-
-                </v-col>
-              </v-row>
-            </v-container>
-          </v-card-text>
-        </v-card>
-      </v-col>
-    </v-row>
+          </v-col>
+        </v-row>
+      </v-container>
+    </v-main>
 
     <!-- Password Reset Dialog -->
     <v-dialog v-model="showPasswordReset" max-width="400">
@@ -107,11 +95,11 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
-  </v-sheet>
+  </v-app>
 </template>
 
 <script setup>
-import { ref, computed, onMounted } from 'vue';
+import { ref, onMounted } from 'vue';
 import { useRouter } from 'vue-router';
 import useAuth from '@/composables/useAuth';
 import useNotify from '@/composables/useNotify';
@@ -156,18 +144,11 @@ const handleLogin = async () => {
 
   loginError.value = false; // Clear previous error
   
-  console.log('=== LOGIN FORM SUBMISSION ===');
-  console.log('Form data - Email:', loginData.value.email);
-  console.log('Form data - Password length:', loginData.value.password ? loginData.value.password.length : 0);
-  console.log('Form valid:', formValid.value);
-  
   const result = await loginUser(loginData.value.email, loginData.value.password);
   
   if (result.success) {
-    console.log('Login form - Success, redirecting to:', result.redirectTo);
     router.push(result.redirectTo);
   } else {
-    console.log('Login form - Failed with error:', result.error);
     loginError.value = true;
   }
 };
@@ -180,18 +161,12 @@ const handlePasswordReset = async () => {
   }
 
   resetLoading.value = true;
-  console.log('=== PASSWORD RESET FORM SUBMISSION ===');
-  console.log('Reset email:', resetEmail.value);
-  
   const result = await resetPassword(resetEmail.value);
   resetLoading.value = false;
 
   if (result.success) {
     showPasswordReset.value = false;
     resetEmail.value = '';
-    console.log('Password reset form - Success');
-  } else {
-    console.log('Password reset form - Failed with error:', result.error);
   }
 };
 
@@ -201,15 +176,11 @@ onMounted(() => {
   if (pageData.value?.title) {
     document.title = pageData.value.title;
   }
-
-  console.log('=== LOGIN PAGE MOUNTED ===');
-  console.log('Login page initialized');
 });
 </script>
 
 <style scoped>
-/* Ensure full height for proper centering */
 .fill-height {
-  min-height: 100%;
+  height: 100vh;
 }
 </style>

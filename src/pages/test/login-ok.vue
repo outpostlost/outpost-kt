@@ -79,38 +79,6 @@
                   </v-card-text>
                 </v-card>
 
-                <!-- Debug Information -->
-                <v-card variant="outlined" class="mt-4">
-                  <v-card-title>
-                    Debug Information
-                    <v-btn 
-                      variant="text" 
-                      size="small" 
-                      @click="showDebug = !showDebug"
-                    >
-                      {{ showDebug ? 'Hide' : 'Show' }}
-                    </v-btn>
-                  </v-card-title>
-                  <v-card-text v-if="showDebug">
-                    <v-list density="compact">
-                      <v-list-item>
-                        <v-list-item-title>Authentication Status</v-list-item-title>
-                        <v-list-item-subtitle>
-                          <v-chip color="success" size="small">Authenticated</v-chip>
-                        </v-list-item-subtitle>
-                      </v-list-item>
-                      <v-list-item>
-                        <v-list-item-title>Redirect Source</v-list-item-title>
-                        <v-list-item-subtitle>{{ redirectSource }}</v-list-item-subtitle>
-                      </v-list-item>
-                      <v-list-item>
-                        <v-list-item-title>Current Route</v-list-item-title>
-                        <v-list-item-subtitle>{{ $route.path }}</v-list-item-subtitle>
-                      </v-list-item>
-                    </v-list>
-                  </v-card-text>
-                </v-card>
-
               </v-card-text>
             </v-card>
           </v-card-text>
@@ -121,32 +89,21 @@
 </template>
 
 <script setup>
-import { ref, computed, onMounted } from 'vue';
-import { useRouter, useRoute } from 'vue-router';
+import { ref, onMounted } from 'vue';
+import { useRouter } from 'vue-router';
 import useAuth from '@/composables/useAuth';
 import useNotify from '@/composables/useNotify';
 
 const router = useRouter();
-const route = useRoute();
 const notify = useNotify();
 const { currentUser, logoutUser, isAuthenticated } = useAuth();
 
 const pageModel = ref(null);   
 const pageData = ref(null);
-const showDebug = ref(false);
 
 const pageMetaData = {
   title: "Login Success"
 };
-
-// Determine redirect source for debug info
-const redirectSource = computed(() => {
-  const wasRedirected = localStorage.getItem('auth_redirect_page');
-  if (wasRedirected) {
-    return `Redirected from attempted access to: ${wasRedirected}`;
-  }
-  return 'Direct login access';
-});
 
 // Format date for display
 const formatDate = (dateString) => {
