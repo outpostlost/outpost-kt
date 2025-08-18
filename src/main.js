@@ -18,7 +18,7 @@ import multiProjectDAL from '@/dal/multiProjectDal'
 
 // Firebase initialization
 import { initializeApp as initFirebaseApp } from 'firebase/app'
-import '@mdi/font/css/materialdesignicons.css'
+
 
 // Import Firebase configuration from external file
 import { operationalConfig, bizDataConfig, bizTrendsConfig, auditConfig } from '@/config/firebase.js'
