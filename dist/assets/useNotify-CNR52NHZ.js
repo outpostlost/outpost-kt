@@ -1,0 +1,1 @@
+import{a_ as c}from"./index-XfzghrTN.js";function m(){const t=c();return{success:(o,n={})=>{t.success(o,n)},error:(o,n={})=>{t.error(o,{...n,timeout:!1})},info:(o,n={})=>{t.info(o,n)},warning:(o,n={})=>{t.warning(o,n)},component:(o,n={},s={})=>{t({component:o,props:n},s)},clearAll:()=>{t.clear()}}}export{m as default};
